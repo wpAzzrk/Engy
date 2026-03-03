@@ -1,0 +1,53 @@
+/* Add custom Js styles below */ 
+document.addEventListener('DOMContentLoaded', function () {
+  if (!document.body.classList.contains('index')) return;
+
+  const overlay = `
+    <div class="popup-overlay" style="
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center;
+      z-index: 9999;
+    ">
+      <div class="popup-container" id="popupContainer" style="
+        background: #fff; padding: 20px; border-radius: 8px; text-align: center; width: 300px; position: relative;
+      ">
+        <button id="closeButton" style="
+          position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 24px; cursor: pointer;
+        ">&times;</button>
+        <div class="popup-content">
+          <img src="https://cdn.salla.sa/form-builder/Y8j8jfON1hfhMuE97zZCB7aY3fip8pEAUWIoyUZk.png" alt="image" style="max-width: 100%; height: auto; margin-bottom: 15px;">
+          <p style="font-size: 16px; font-weight: bold; margin-bottom: 10px;">🎉 استخدم كود الخصم</p>
+          <button id="copyCoupon" style="
+            background: #d9534f; color: #fff; border: none; padding: 10px 15px; cursor: pointer;
+            font-size: 16px; border-radius: 5px; font-family: 'Cairo';
+          ">انسخ الكود</button>
+          <div id="copyNotification" style="display:none; margin-top:10px; color:green; font-weight:bold;">
+            ✅ تم نسخ الكود: Edu95
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.insertAdjacentHTML("afterbegin", overlay);
+
+  // إغلاق البوب أب
+  function hidePopup() {
+    const overlay = document.querySelector('.popup-overlay');
+    if (overlay) overlay.remove();
+  }
+  document.getElementById('closeButton').addEventListener('click', hidePopup);
+
+  // نسخ الكود
+  document.getElementById('copyCoupon').addEventListener('click', function () {
+    const code = "Edu95";
+    navigator.clipboard.writeText(code).then(function () {
+      document.getElementById('copyNotification').style.display = "block";
+      setTimeout(() => {
+        document.getElementById('copyNotification').style.display = "none";
+      }, 2000);
+    });
+  });
+});
+
+
